@@ -1,88 +1,59 @@
-import React from "react";
+import React from 'react';
 import { render } from 'react-dom';
-import { injectGlobal } from "styled-components";
-import App from "./App";
-
+import { injectGlobal } from 'styled-components';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-
 import createHistory from 'history/createBrowserHistory';
-
-// import mainReducer from './redux/reducers';
 import { routerMiddleware } from 'react-router-redux';
-import {  Router,  Route, Switch, Redirect } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import createSagaMiddleware from 'redux-saga';
 
-// import {minFraud, Login, ForgotPassword, RecoverPassword, Signup, Partners, Error404, PartnersDetails, Invite, RevenueCalculator, Users } from './views/';
-// import AdRecovery from './views/reports/AdRecovery';
-// import BlockingAnalytics from './views/reports/BlockingAnalytics';
-// import Pageview from './views/reports/Pageview';
-// import MissedOpportunities from './views/reports/MissedOpportunities';
-// import { loadState, saveState } from './util/localStorage';
+// Reducers
+import mainReducer from './redux/reducers';
+// Main Components
+import Home from './components/Home';
+// Utils
+import { loadState, saveState } from './util/localStorage';
+// Sagas
+import rootSaga from './sagas';
+// Middlewares
+import logger from './middlewares/logger';
 
-// import { getCookie } from './util/common';
+const sagaMiddleware = createSagaMiddleware();
 
 const history = createHistory();
 
 let middlewares = [];
 
 middlewares.push(routerMiddleware(history));
+middlewares.push(sagaMiddleware);
+middlewares.push(logger);
 
-// Load State
-// const persistedState = loadState();
+const store = createStore(mainReducer, compose(applyMiddleware(...middlewares)));
 
-const store = createStore(mainReducer, persistedState, compose(applyMiddleware(...middlewares)));
+sagaMiddleware.run(rootSaga);
 
-const options = { refreshOnCheckAuth: true, redirectPath: '/login', driver: 'COOKIES' };
-sessionService.refreshFromLocalStorage();
-sessionService.initSessionService(store, options);
+store.subscribe(() => {
+  saveState({
+    store: store.getState()
+  });
+});
 
-store.subscribe(throttle( () => {
-    saveState({
-        queryString: store.getState().queryString
-    });
-}, 1000));
-
-const renderComponent = (props, Component) => {
-    let cookie = getCookie('USER-SESSION');
-    let loginRedirect = <Redirect to={`/login${props.location.search}`} />;
-
-    if (cookie === '' || cookie === undefined || cookie === null) {
-        return  loginRedirect;
+injectGlobal`
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background: black;
     }
-
-    let parsedCookie = JSON.parse(cookie);
-
-    if (!parsedCookie) {
-        return loginRedirect;
-
-    }
-    if (!parsedCookie.user) {
-        return loginRedirect;
-    }
-
-    const queryState = loadState();
-
-    if (window.location.search && window.location.search.length > 0) {
-        store.dispatch(parseUrlQuery());
-    }
-
-    return <Component {...props} />
-};
-
-const PrivateRoute = ({ component: Component, ...rest }) => {
-    return (
-        <Route
-            {...rest}
-            render={(props) => renderComponent(props, Component)} />
-    );
-};
+`;
 
 render(
-    <Provider store={store}>
-        <Router history={history}>
-            <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
+  <Provider store={store}>
+    <Router history={history}>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        {/* <Route exact path="/signup" component={Signup} />
                 <Route exact path="/invite" component={Invite} />
                 <Route exact path="/forgot-password" component={ForgotPassword} />
                 <Route exact path="/reset-password" component={RecoverPassword} />
@@ -97,23 +68,9 @@ render(
                 <PrivateRoute exact path="/users" component={Users} />
                 <PrivateRoute exact path="/revenue-calculator" component={RevenueCalculator} />
                 <PrivateRoute exact path="/ip-risk-evaluator" component={minFraud} />
-                <Route component={Error404} />
-            </Switch>
-        </Router>
-    </Provider>,
-    document.getElementById('root')
+                <Route component={Error404} /> */}
+      </Switch>
+    </Router>
+  </Provider>,
+  document.getElementById('root')
 );
-
-
-
-
-injectGlobal`
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-        background: black;
-    }
-`;
-
-ReactDOM.render(<App />, document.getElementById("root"));
