@@ -1,0 +1,4 @@
+{
+  "presets": ["create-react-app", "flow"],
+  "retainLines": true
+}

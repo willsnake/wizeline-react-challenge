@@ -8,6 +8,7 @@ export function* getTrendingGifs(limit = 25, offset = 0, fmt = 'json') {
       }&limit=${limit}&offset=${offset}&fmt=${fmt}`
     );
     let response = yield gifs.json();
+    console.log('response', JSON.stringify(response.data, null, 2));
     // TODO: SEND DATA TO THE HOME COMPONENT
   } catch (e) {
     console.error(e);
