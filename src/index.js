@@ -11,7 +11,7 @@ import createSagaMiddleware from 'redux-saga';
 // Reducers
 import mainReducer from './redux/reducers';
 // Main Components
-import Home from './components/Home';
+import { Home } from './views';
 // Utils
 import { loadState, saveState } from './util/localStorage';
 // Sagas
@@ -53,22 +53,6 @@ render(
     <Router history={history}>
       <Switch>
         <Route exact path="/" component={Home} />
-        {/* <Route exact path="/signup" component={Signup} />
-                <Route exact path="/invite" component={Invite} />
-                <Route exact path="/forgot-password" component={ForgotPassword} />
-                <Route exact path="/reset-password" component={RecoverPassword} />
-                <Route exact path="/" render={() => <Redirect to="/reports/blocking-analytics" />}/>
-                <Route exact path="/reports" render={() => <Redirect to="/reports/blocking-analytics" />}/>
-                <PrivateRoute exact path="/reports/blocking-analytics" component={BlockingAnalytics} />
-                <PrivateRoute exact path="/reports/missed-opportunities" component={MissedOpportunities} />
-                <PrivateRoute exact path="/reports/pageviews" component={Pageview} />
-                <PrivateRoute exact path="/reports/ad-recovery" component={AdRecovery} />
-                <PrivateRoute exact path="/partners" component={Partners} />
-                <PrivateRoute exact path="/partners/:partnerId" component={PartnersDetails} />
-                <PrivateRoute exact path="/users" component={Users} />
-                <PrivateRoute exact path="/revenue-calculator" component={RevenueCalculator} />
-                <PrivateRoute exact path="/ip-risk-evaluator" component={minFraud} />
-                <Route component={Error404} /> */}
       </Switch>
     </Router>
   </Provider>,

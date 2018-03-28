@@ -1,10 +1,35 @@
-import { BEGIN_GET_GIFS_TRENDING_GIFS } from '../types';
+import { handleActions } from 'redux-actions';
 
-export function app(state = {}, action = {}) {
-  switch (action.type) {
-    case BEGIN_GET_GIFS_TRENDING_GIFS:
-      return action.payload;
-    default:
+import {
+  BEGIN_GET_GIFS_TRENDING_GIFS,
+  SUCCESS_GET_GIFS_TRENDING_GIFS,
+  ERROR_GET_GIFS_TRENDING_GIFS
+} from '../types';
+
+let initialState = {
+  gifs: [],
+  filter: { limit: 25, offset: 0, fmt: 'json' }
+};
+
+export const app = handleActions(
+  {
+    [BEGIN_GET_GIFS_TRENDING_GIFS]: (_state, action) => {
+      let state = Object.assign({}, { ..._state });
       return state;
-  }
-}
+    },
+    [SUCCESS_GET_GIFS_TRENDING_GIFS]: (_state, action) => {
+      let state = Object.assign({}, { ..._state });
+      for (let gif of action.gifs) {
+        state.gifs.push(gif);
+      }
+      return state;
+    },
+    [ERROR_GET_GIFS_TRENDING_GIFS]: (_state, action) => {
+      let state = Object.assign({}, { ..._state });
+      console.log('ERROR_GET_GIFS_TRENDING_GIFS state', state);
+      console.log('ERROR_GET_GIFS_TRENDING_GIFS action', action);
+      return state;
+    }
+  },
+  initialState
+);

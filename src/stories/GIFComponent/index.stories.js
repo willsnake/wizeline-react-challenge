@@ -3,30 +3,33 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 
+// Component
+import { GIFComponent } from '../../components';
+
 import { gifComponentData } from '../mockData';
 
-storiesOf('GIF', module).add(
+storiesOf('GIF Component', module).add(
   'Default',
   withInfo({
     inline: true,
     propTables: [
       {
-        displayName: 'Segment',
+        displayName: 'GIF Component',
         propTypes: {
-          title: PropTypes.string,
-          actions: PropTypes.object,
-          noPaddingContent: PropTypes.bool,
-          titleStyle: PropTypes.object
+          onClick: PropTypes.func.isRequired,
+          gifData: PropTypes.object.isRequired,
+          id: PropTypes.string
         }
       }
     ],
-    propTablesExclude: [Segment],
-    text: `This is the container used for all the charts.`
+    propTablesExclude: [GIFComponent],
+    text: `This is the container used for the gifs.`
   })(() => (
-    <Segment
-      title={segmentData.title}
-      noPaddingContent={segmentData.noPaddingContent}
-      actions={<Button />}
+    <GIFComponent
+      onClick={() => {
+        alert('GIF clicked');
+      }}
+      gifData={gifComponentData[0]}
     />
   ))
 );

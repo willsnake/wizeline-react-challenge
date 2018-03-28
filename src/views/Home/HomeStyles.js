@@ -19,6 +19,9 @@ const Content = styled.div`
   text-align: center;
   grid-column: 1 / 6;
   grid-row: 2 / 4;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows: 20% 20% 20% 20% 20%;
 `;
 
 const Footer = styled.div`
