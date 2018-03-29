@@ -11,8 +11,8 @@ import {
 
 let initialState = {
   gifs: [],
-  gifsFound: [],
   searchAPI: '',
+  favoriteGifs: [],
   filter: { limit: 25, offset: 0, fmt: 'json' }
 };
 
@@ -20,6 +20,7 @@ export const app = handleActions(
   {
     [BEGIN_GET_GIFS_TRENDING_GIFS]: (_state, action) => {
       let state = Object.assign({}, { ..._state });
+      state.gifs = [];
       return state;
     },
     [SUCCESS_GET_GIFS_TRENDING_GIFS]: (_state, action) => {
