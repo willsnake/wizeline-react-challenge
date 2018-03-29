@@ -6,7 +6,9 @@ import {
   ERROR_GET_GIFS_TRENDING_GIFS,
   BEGIN_SEARCH_GIF_API,
   SUCCESS_SEARCH_GIF_API,
-  ERROR_SEARCH_GIF_API
+  ERROR_SEARCH_GIF_API,
+  HANDLE_FAVORITE_CHANGE,
+  SET_NEW_STATUS_FAVORITES
 } from '../types';
 
 let initialState = {
@@ -50,6 +52,15 @@ export const app = handleActions(
     },
     [ERROR_SEARCH_GIF_API]: (_state, action) => {
       let state = Object.assign({}, { ..._state });
+      return state;
+    },
+    [HANDLE_FAVORITE_CHANGE]: (_state, action) => {
+      let state = Object.assign({}, { ..._state });
+      return state;
+    },
+    [SET_NEW_STATUS_FAVORITES]: (_state, action) => {
+      let state = Object.assign({}, { ..._state });
+      state.favoriteGifs = action.favorites;
       return state;
     }
   },

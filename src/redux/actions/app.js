@@ -4,7 +4,9 @@ import {
   ERROR_GET_GIFS_TRENDING_GIFS,
   BEGIN_SEARCH_GIF_API,
   SUCCESS_SEARCH_GIF_API,
-  ERROR_SEARCH_GIF_API
+  ERROR_SEARCH_GIF_API,
+  HANDLE_FAVORITE_CHANGE,
+  SET_NEW_STATUS_FAVORITES
 } from '../types';
 
 export const fetchTrendingGifs = filter => ({
@@ -35,4 +37,14 @@ export const searchGIFAPICompleted = gifs => ({
 export const searchGIFAPIFailed = error => ({
   type: ERROR_SEARCH_GIF_API,
   error
+});
+
+export const handleFavoriteChange = id => ({
+  type: HANDLE_FAVORITE_CHANGE,
+  id
+});
+
+export const setNewFavoriteStatus = favorites => ({
+  type: SET_NEW_STATUS_FAVORITES,
+  favorites
 });

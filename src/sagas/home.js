@@ -4,10 +4,19 @@ import { fetchTrendingGifsCompleted, fetchTrendingGifsFailed } from '../redux/ac
 
 import { BEGIN_GET_GIFS_TRENDING_GIFS } from '../redux/types';
 
+// export function* searchFavoriteGifs(trendingGifs, favoriteGifs) {
+//   let gifsFound = trendingGifs.map()
+//   for (let trend of favoriteGifs) {
+//   }
+// }
+
 export function* loadTrendingGifs() {
   try {
-    const filter = yield select(({ app }) => app.filter);
-    const gifs = yield call(getTrendingGifs, filter);
+    const appState = yield select(({ app }) => {
+      return { filter: app.filter, favoriteGifs: app.favoriteGifs };
+    });
+    const gifs = yield call(getTrendingGifs, appState.filter);
+    // Check if a gif is already set as favorite
     yield put(fetchTrendingGifsCompleted(gifs.data));
   } catch (e) {
     yield put(fetchTrendingGifsFailed(e));
