@@ -11,11 +11,12 @@ import {
   SET_NEW_STATUS_FAVORITES
 } from '../types';
 
-let initialState = {
+export const initialState = {
   gifs: [],
   searchAPI: '',
   favoriteGifs: [],
-  filter: { limit: 25, offset: 0, fmt: 'json' }
+  filter: { limit: 25, offset: 0, fmt: 'json' },
+  error: {}
 };
 
 export const app = handleActions(
@@ -27,15 +28,15 @@ export const app = handleActions(
     },
     [SUCCESS_GET_GIFS_TRENDING_GIFS]: (_state, action) => {
       let state = Object.assign({}, { ..._state });
+      state.gifs = [];
       for (let gif of action.gifs) {
-        state.gifs.push(gif);
+        state.gifs.push({ ...gif });
       }
       return state;
     },
     [ERROR_GET_GIFS_TRENDING_GIFS]: (_state, action) => {
       let state = Object.assign({}, { ..._state });
-      console.log('ERROR_GET_GIFS_TRENDING_GIFS state', state);
-      console.log('ERROR_GET_GIFS_TRENDING_GIFS action', action);
+      state.error = action.error;
       return state;
     },
     [BEGIN_SEARCH_GIF_API]: (_state, action) => {
@@ -52,6 +53,7 @@ export const app = handleActions(
     },
     [ERROR_SEARCH_GIF_API]: (_state, action) => {
       let state = Object.assign({}, { ..._state });
+      state.error = action.error;
       return state;
     },
     [HANDLE_FAVORITE_CHANGE]: (_state, action) => {
