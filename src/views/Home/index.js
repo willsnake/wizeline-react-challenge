@@ -2,25 +2,34 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import { RowContainer, GIFComponent } from '../../components';
+import { GIFComponent, Header } from '../../components';
 
 // Connect
 import Connect from '../../util/connect';
 
 // Styles
-import { AppContainer, Header, Footer, Content } from './HomeStyles';
+import { HomeContainer, Content } from './HomeStyles';
 
 class Home extends Component {
+  constructor() {
+    super();
+    this.searchFunction = this.searchFunction.bind(this);
+  }
   componentWillMount() {
     const { appState: { filter }, fetchTrendingGifsAction } = this.props;
     fetchTrendingGifsAction(filter);
   }
 
+  searchFunction(event) {
+    const { searchGIFAPIAction } = this.props;
+    searchGIFAPIAction(event.target.value);
+  }
+
   render() {
     const { appState: { gifs } } = this.props;
     return (
-      <AppContainer>
-        <Header>Awesome challenge</Header>
+      <HomeContainer>
+        <Header {...this.props} searchFunction={this.searchFunction} />
         <Content>
           {gifs.length > 0 ? (
             gifs.map(gif => <GIFComponent key={gif.id} id={gif.id} gifData={gif} />)
@@ -28,15 +37,15 @@ class Home extends Component {
             <div style={{ color: 'white' }}>Loading</div>
           )}
         </Content>
-        <Footer>Awesome Footer</Footer>
-      </AppContainer>
+      </HomeContainer>
     );
   }
 }
 
 Home.propTypes = {
   appState: PropTypes.object.isRequired,
-  fetchTrendingGifsAction: PropTypes.func.isRequired
+  fetchTrendingGifsAction: PropTypes.func.isRequired,
+  searchGIFAPIAction: PropTypes.func.isRequired
 };
 
 let home = Connect(Home);

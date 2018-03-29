@@ -6,6 +6,7 @@ import { withInfo } from '@storybook/addon-info';
 // Component
 import { GIFComponent } from '../../components';
 
+// Mock Data
 import { gifComponentData } from '../mockData';
 
 storiesOf('GIF Component', module).add(

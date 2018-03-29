@@ -1,4 +1,5 @@
 import React from 'react';
+
 export const gifComponentData = [
   {
     type: 'gif',
@@ -582,5 +583,16 @@ export const gifComponentData = [
       }
     },
     title: 'say amen (saturday night) pray for the wicked GIF by Panic! At The Disco'
+  }
+];
+
+export const menuData = [
+  {
+    section: 'home',
+    path: '/'
+  },
+  {
+    section: 'favorites',
+    path: '/favorites'
   }
 ];

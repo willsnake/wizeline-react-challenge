@@ -15,7 +15,7 @@ class GIFComponent extends Component {
         width={gifData.images.fixed_height_small.width}
         height={gifData.images.fixed_height_small.height}
       >
-        <img src={gifData.images.fixed_height_small_still.url} />
+        <img src={gifData.images.fixed_height_small.url} />
       </GIFComponentStyled>
     );
   }

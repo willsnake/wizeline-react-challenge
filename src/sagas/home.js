@@ -1,10 +1,6 @@
 import { call, takeEvery, put, select } from 'redux-saga/effects';
 import { getTrendingGifs } from '../api/giphy';
-import {
-  fetchTrendingGifs,
-  fetchTrendingGifsCompleted,
-  fetchTrendingGifsFailed
-} from '../redux/actions';
+import { fetchTrendingGifsCompleted, fetchTrendingGifsFailed } from '../redux/actions';
 
 import { BEGIN_GET_GIFS_TRENDING_GIFS } from '../redux/types';
 

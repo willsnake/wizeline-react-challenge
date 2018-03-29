@@ -1,4 +1,6 @@
 import GIFComponent from './GIFComponent';
-import RowContainer from './RowContainer';
+import Header from './Header';
+import MainMenu from './MainMenu';
+import SearchBar from './SearchBar';
 
-export { GIFComponent, RowContainer };
+export { GIFComponent, Header, MainMenu, SearchBar };

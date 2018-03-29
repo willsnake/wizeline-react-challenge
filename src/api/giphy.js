@@ -22,3 +22,27 @@ export function getTrendingGifs(filter) {
       });
   });
 }
+
+export function searchGif(search) {
+  return new Promise((resolve, reject) => {
+    return fetch(
+      `${process.env.REACT_APP_GIPHY_API_URL}search?api_key=${
+        process.env.REACT_APP_GIPHY_API_KEY
+      }&q=${search}&limit=20&lang=eng&fmt=json`
+    )
+      .then(response => {
+        if (!response.ok) {
+          return response.json();
+        } else {
+          return response.json();
+        }
+      })
+      .then(resolvedAnswer => {
+        if (resolvedAnswer.error) reject(resolvedAnswer);
+        resolve(resolvedAnswer);
+      })
+      .catch(res => {
+        reject(res);
+      });
+  });
+}
