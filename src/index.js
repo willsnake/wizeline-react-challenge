@@ -29,13 +29,15 @@ middlewares.push(routerMiddleware(history));
 middlewares.push(sagaMiddleware);
 middlewares.push(logger);
 
-const store = createStore(mainReducer, compose(applyMiddleware(...middlewares)));
+const persistedState = loadState();
+
+const store = createStore(mainReducer, persistedState, compose(applyMiddleware(...middlewares)));
 
 sagaMiddleware.run(rootSaga);
 
 store.subscribe(() => {
   saveState({
-    store: store.getState()
+    store: store.getState().app
   });
 });
 

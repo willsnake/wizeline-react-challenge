@@ -1,5 +1,3 @@
-import { createAction } from 'redux-actions';
-
 import {
   BEGIN_GET_GIFS_TRENDING_GIFS,
   SUCCESS_GET_GIFS_TRENDING_GIFS,

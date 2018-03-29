@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FaHeartO } from 'react-icons/lib/fa';
+// Import {FaHeart}
 
 // Styles
 import { GIFComponentStyled } from './GIFComponentStyles';
@@ -15,7 +17,10 @@ class GIFComponent extends Component {
         width={gifData.images.fixed_height_small.width}
         height={gifData.images.fixed_height_small.height}
       >
-        <img src={gifData.images.fixed_height_small.url} />
+        <img alt={gifData.title} src={gifData.images.fixed_height_small.url} />
+        <div>
+          <FaHeartO color={'white'} />
+        </div>
       </GIFComponentStyled>
     );
   }

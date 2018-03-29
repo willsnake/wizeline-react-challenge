@@ -1,11 +1,6 @@
-import { call, takeEvery, put, select } from 'redux-saga/effects';
-import { searchGif, getTrendingGifs } from '../api/giphy';
-import {
-  fetchTrendingGifsCompleted,
-  fetchTrendingGifsFailed,
-  searchGIFAPICompleted,
-  searchGIFAPIFailed
-} from '../redux/actions';
+import { call, takeEvery, put } from 'redux-saga/effects';
+import { searchGif } from '../api/giphy';
+import { searchGIFAPICompleted, searchGIFAPIFailed } from '../redux/actions';
 
 import { BEGIN_SEARCH_GIF_API } from '../redux/types';
 

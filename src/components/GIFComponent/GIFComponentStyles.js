@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 const GIFComponentStyled = styled.div`
   width: ${props => props.width}px;
-  height: ${props => props.height}px;
+  min-height: ${props => props.height}px;
   cursor: pointer;
+  text-align: center;
   transition: all 0.2s ease-in-out;
   &:hover {
     -webkit-transform: scale(1.05, 1.07);
