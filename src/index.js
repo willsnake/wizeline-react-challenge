@@ -37,7 +37,7 @@ sagaMiddleware.run(rootSaga);
 
 store.subscribe(() => {
   saveState({
-    store: store.getState().app
+    app: store.getState().app
   });
 });
 
