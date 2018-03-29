@@ -4,12 +4,6 @@ import { fetchTrendingGifsCompleted, fetchTrendingGifsFailed } from '../redux/ac
 
 import { BEGIN_GET_GIFS_TRENDING_GIFS } from '../redux/types';
 
-// export function* searchFavoriteGifs(trendingGifs, favoriteGifs) {
-//   let gifsFound = trendingGifs.map()
-//   for (let trend of favoriteGifs) {
-//   }
-// }
-
 export function* loadTrendingGifs() {
   try {
     const appState = yield select(({ app }) => {

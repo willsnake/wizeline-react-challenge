@@ -1,23 +1,27 @@
 import styled from 'styled-components';
 
-const HomeContainer = styled.div`
+const GIFViewContainerStyled = styled.div`
   display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%;
-  grid-template-rows: 20% 20% 20% 20% 20%;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 25% 25% 25%;
 `;
 
 const Content = styled.div`
   color: white;
-  text-align: left;
-  grid-column: 1 / 6;
-  grid-row: 2 / 4;
+  text-align: center;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
   display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%;
-  grid-template-rows: 20% 20% 20% 20% 20%;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 25% 25% 25%;
 `;
 
 const FavoriteContainer = styled.div`
   padding: 0 20px;
+  display: fixed;
+  bottom: 0;
+  grid-column: 4;
+  grid-row: 2 / 3;
 `;
 
 const ButtonAddFavorite = styled.button`
@@ -114,4 +118,10 @@ const ButtonRemoveFavorite = styled.button`
   }
 `;
 
-export { HomeContainer, FavoriteContainer, Content, ButtonAddFavorite, ButtonRemoveFavorite };
+export {
+  GIFViewContainerStyled,
+  Content,
+  FavoriteContainer,
+  ButtonAddFavorite,
+  ButtonRemoveFavorite
+};

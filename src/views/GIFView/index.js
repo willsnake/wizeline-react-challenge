@@ -10,14 +10,14 @@ import Connect from '../../util/connect';
 
 // Styles
 import {
-  HomeContainer,
+  GIFViewContainerStyled,
   Content,
   ButtonAddFavorite,
   ButtonRemoveFavorite,
   FavoriteContainer
-} from './HomeStyles';
+} from './GIFViewStyles';
 
-class Home extends Component {
+class GIFView extends Component {
   constructor() {
     super();
     this.searchFunction = this.searchFunction.bind(this);
@@ -45,15 +45,15 @@ class Home extends Component {
     }
   }
 
+  getGifData(id) {
+    const { appState: { gifs } } = this.props;
+    return gifs.find(gif => gif.id === id);
+  }
+
   handleFavoriteChange(event) {
     event.preventDefault();
     const { handleFavoriteChangeAction } = this.props;
     handleFavoriteChangeAction(event.target.id);
-  }
-
-  componentWillMount() {
-    const { appState: { filter }, fetchTrendingGifsAction } = this.props;
-    fetchTrendingGifsAction(filter);
   }
 
   searchFunction(event) {
@@ -62,41 +62,33 @@ class Home extends Component {
   }
 
   render() {
-    const { appState: { gifs } } = this.props;
+    const { match: { params: { id } } } = this.props;
+    let gif = this.getGifData(id);
     return (
-      <HomeContainer>
+      <GIFViewContainerStyled>
         <Header {...this.props} searchFunction={this.searchFunction} />
         <Content>
-          {gifs.length > 0 ? (
-            gifs.map(gif => (
-              <Link to={`/gif/${gif.id}`} key={gif.id}>
-                <GIFComponent
-                  gifData={{
-                    id: gif.id,
-                    title: gif.title,
-                    width: gif.images.fixed_height_small.width,
-                    height: gif.images.fixed_height_small.height,
-                    url: gif.images.fixed_height_small.url
-                  }}
-                />
-                <FavoriteContainer>{this.renderHeart(gif.id)}</FavoriteContainer>
-              </Link>
-            ))
-          ) : (
-            <div style={{ color: 'white' }}>Loading</div>
-          )}
+          <GIFComponent
+            gifData={{
+              id: gif.id,
+              title: gif.title,
+              width: gif.images.original.width,
+              height: gif.images.original.height,
+              url: gif.images.original.url
+            }}
+          />
+          <FavoriteContainer>{this.renderHeart(gif.id)}</FavoriteContainer>
         </Content>
-      </HomeContainer>
+      </GIFViewContainerStyled>
     );
   }
 }
 
-Home.propTypes = {
+GIFView.propTypes = {
   appState: PropTypes.object.isRequired,
-  fetchTrendingGifsAction: PropTypes.func.isRequired,
   searchGIFAPIAction: PropTypes.func.isRequired,
   handleFavoriteChangeAction: PropTypes.func.isRequired
 };
 
-let home = Connect(Home);
-export default home;
+let gIFView = Connect(GIFView);
+export default gIFView;

@@ -11,7 +11,7 @@ import createSagaMiddleware from 'redux-saga';
 // Reducers
 import mainReducer from './redux/reducers';
 // Main Components
-import { Home } from './views';
+import { Home, GIFView } from './views';
 // Utils
 import { loadState, saveState } from './util/localStorage';
 // Sagas
@@ -55,6 +55,7 @@ render(
     <Router history={history}>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/gif/:id" component={GIFView} />
       </Switch>
     </Router>
   </Provider>,
